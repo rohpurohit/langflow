@@ -5,8 +5,6 @@ from .file import FileComponent
 from .json_to_data import JSONToDataComponent
 from .kb_ingest import KBIngestionComponent
 from .kb_retrieval import KBRetrievalComponent
-from .news_search import NewsSearchComponent
-from .rss import RSSReaderComponent
 from .sql_executor import SQLComponent
 from .url import URLComponent
 from .web_search import WebSearchComponent
@@ -20,8 +18,6 @@ __all__ = [
     "JSONToDataComponent",
     "KBIngestionComponent",
     "KBRetrievalComponent",
-    "NewsSearchComponent",
-    "RSSReaderComponent",
     "SQLComponent",
     "URLComponent",
     "WebSearchComponent",

@@ -249,11 +249,7 @@ export default function StorePage(): JSX.Element {
               >
                 Components
               </button>
-              <ShadTooltip content="Coming Soon">
-                <button className="cursor-not-allowed p-3 text-muted-foreground">
-                  Bundles
-                </button>
-              </ShadTooltip>
+
             </div>
           </div>
 
