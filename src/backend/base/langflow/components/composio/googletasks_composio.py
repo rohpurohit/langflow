@@ -1,4 +1,4 @@
-from base.langflow.base.composio.composio_base import ComposioBaseComponent
+from langflow.base.composio.composio_base import ComposioBaseComponent
 
 
 class ComposioGoogleTasksAPIComponent(ComposioBaseComponent):
