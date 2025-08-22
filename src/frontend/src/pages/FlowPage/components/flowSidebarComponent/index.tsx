@@ -16,7 +16,6 @@ import { useStoreStore } from "@/stores/storeStore";
 import { checkChatInput, checkWebhookInput } from "@/utils/reactflowUtils";
 import {
   nodeColors,
-  SIDEBAR_BUNDLES,
   SIDEBAR_CATEGORIES,
 } from "@/utils/styleUtils";
 import useAlertStore from "../../../../stores/alertStore";
@@ -26,7 +25,6 @@ import type { APIClassType } from "../../../../types/api";
 import isWrappedWithClass from "../PageComponent/utils/is-wrapped-with-class";
 import { CategoryGroup } from "./components/categoryGroup";
 import NoResultsMessage from "./components/emptySearchComponent";
-import MemoizedSidebarGroup from "./components/sidebarBundles";
 import SidebarMenuButtons from "./components/sidebarFooterButtons";
 import { SidebarHeaderComponent } from "./components/sidebarHeader";
 import { applyBetaFilter } from "./helpers/apply-beta-filter";
@@ -40,7 +38,6 @@ import { traditionalSearchMetadata } from "./helpers/traditional-search-metadata
 import { UniqueInputsComponents } from "./types";
 
 const CATEGORIES = SIDEBAR_CATEGORIES;
-const BUNDLES = SIDEBAR_BUNDLES;
 
 interface FlowSidebarComponentProps {
   isLoading?: boolean;
@@ -115,7 +112,7 @@ export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
         ? 1
         : -1,
     );
-  }, [searchResults, searchFilteredData, CATEGORIES, BUNDLES]);
+  }, [searchResults, searchFilteredData, CATEGORIES]);
 
   const finalFilteredData = useMemo(() => {
     let filteredData = searchFilteredData;
@@ -139,8 +136,7 @@ export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
     return Object.entries(dataFilter).some(
       ([category, items]) =>
         Object.keys(items).length > 0 &&
-        (CATEGORIES.find((c) => c.name === category) ||
-          BUNDLES.find((b) => b.name === category)),
+        CATEGORIES.find((c) => c.name === category),
     );
   }, [dataFilter]);
 
@@ -277,15 +273,7 @@ export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
     [],
   );
 
-  const hasBundleItems = useMemo(
-    () =>
-      BUNDLES.some(
-        (item) =>
-          dataFilter[item.name] &&
-          Object.keys(dataFilter[item.name]).length > 0,
-      ),
-    [dataFilter],
-  );
+
 
   return (
     <Sidebar
@@ -338,21 +326,6 @@ export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
                   onDragStart={onDragStart}
                   sensitiveSort={sensitiveSort}
                 />
-
-                {hasBundleItems && (
-                  <MemoizedSidebarGroup
-                    BUNDLES={BUNDLES}
-                    search={search}
-                    sortedCategories={sortedCategories}
-                    dataFilter={dataFilter}
-                    nodeColors={nodeColors}
-                    onDragStart={onDragStart}
-                    sensitiveSort={sensitiveSort}
-                    openCategories={openCategories}
-                    setOpenCategories={setOpenCategories}
-                    handleKeyDownInput={handleKeyDownInput}
-                  />
-                )}
               </>
             ) : (
               <NoResultsMessage onClearSearch={handleClearSearch} />
